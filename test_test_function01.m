@@ -1,4 +1,8 @@
 Xn = [2;3;1];
-[Fxn, Jxn] = test_function01(Xn)
-roots = Xn-Jxn\Fxn
-test_function01(roots)
+thresh = 1e-14;
+[Fxn, Jxn] = test_function01(Xn);
+while any(abs(Fxn)>thresh)
+    Xn = Xn-Jxn\Fxn;
+    [Fxn, Jxn] = test_function01(Xn);
+end
+test_function01(Xn)
