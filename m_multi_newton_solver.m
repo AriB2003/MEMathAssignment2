@@ -43,7 +43,7 @@ xn = x_guess;
 [Fxn,Jxn] = eval(fun,xn,numerical_diff);
 iterations = 0;
 
-while aany(abs(Fxn)>ftol) && det(Jxn*Jxn')~=0 && iterations<1000
+while any(abs(Fxn)>ftol) && det(Jxn*Jxn')~=0 && iterations<1000
     iterations = iterations + 1;
     Xn = Xn - Jxn\Fxn;
     Fx0 = Fxn;

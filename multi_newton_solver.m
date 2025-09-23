@@ -40,13 +40,18 @@ function [Xn, exit_flag] = multi_newton_solver(fun,Xn,solver_params)
     %your code here
     [Fxn, Jxn] = eval(fun, Xn, numerical_diff);
     iterations = 0;
-    while any(abs(Fxn)>ftol) && det(Jxn*Jxn')~=0 && iterations<1000
+    while any(abs(Fxn)>ftol) && det(Jxn*Jxn')~=0
         iterations = iterations + 1;
         Xn = Xn-Jxn\Fxn;
         Fx0 = Fxn;
         [Fxn, Jxn] = eval(fun, Xn, numerical_diff);
         dx = norm(Fxn-Fx0);
         if dx < dxtol || dx > dxmax
+            disp("Step size excessive")
+            break
+        end
+        if iterations>1000
+            disp("Max iter exceeded")
             break
         end
     end

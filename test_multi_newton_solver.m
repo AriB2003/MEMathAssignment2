@@ -1,6 +1,6 @@
 params = struct();
-params.numerical_diff = 0;
-[roots, flag] = m_multi_newton_solver(@test_function02, [1;2;3], params)
+params.numerical_diff = 1;
+[roots, flag] = WM_multi_newton_solver(@test_function03, [1;2;3], params)
 check = test_function02(roots)
 
 function [f_out,dfdx] = test_function02(X)
