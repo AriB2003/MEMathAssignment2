@@ -50,8 +50,42 @@ vertex_guess_coords = [...
     [ -50; -100]... %vertex 7 guess
 ];
 leg_drawing = initialize_leg_drawing(leg_params);
-for theta = 0:0.1:6*pi
-    solved_coords = compute_coords(vertex_guess_coords,leg_params,theta);
-    update_leg_drawing(solved_coords, leg_drawing, leg_params);
+theta = 0:0.1:2*pi;
+fd_x_tip = zeros(length(theta),1);
+fd_y_tip = zeros(length(theta),1);
+j_x_tip = zeros(length(theta),1);
+j_y_tip = zeros(length(theta),1);
+for ind=1:length(theta)
+    vertex_guess_coords = compute_coords(vertex_guess_coords,leg_params,theta(ind));
+    fd_velocities = finite_diff_velocities(vertex_guess_coords, leg_params, theta(ind));
+    j_velocities = compute_velocities(vertex_guess_coords, leg_params, theta(ind));
+    fd_velocity_matrix = column_to_matrix(fd_velocities);
+    fd_x_tip(ind) = fd_velocity_matrix(7,1);
+    fd_y_tip(ind) = fd_velocity_matrix(7,2);
+    j_velocity_matrix = column_to_matrix(j_velocities);
+    j_x_tip(ind) = j_velocity_matrix(7,1);
+    j_y_tip(ind) = j_velocity_matrix(7,2);
+    update_leg_drawing(vertex_guess_coords, leg_drawing, leg_params, j_velocities);
     pause(0.05);
 end
+figure;
+subplot(2,1,1);
+plot(theta, fd_x_tip, "r-", "DisplayName","Finite Diff");
+hold on
+plot(theta, j_x_tip,"b--", "DisplayName","Lin Alg");
+title("X velocity of tip");
+xticks([0, pi/2, pi, 3*pi/2, 2*pi])
+xlabel("\theta");
+ylabel("units/s");
+legend();
+hold off
+subplot(2,1,2);
+plot(theta, fd_y_tip,"r-", "DisplayName","Finite Diff");
+hold on
+plot(theta, j_y_tip,"b--", "DisplayName","Lin Alg");
+title("Y velocity of tip");
+xticks([0, pi/2, pi, 3*pi/2, 2*pi])
+xlabel("\theta");
+ylabel("units/s");
+legend();
+hold off

@@ -16,6 +16,7 @@ function leg_drawing = initialize_leg_drawing(leg_params)
         leg_drawing.linkages{linkage_index} = line([0,0],[0,0],'color','k','linewidth',2);
     end
     leg_drawing.crank = line([0,0],[0,0],'color','k','linewidth',1.5);
+    leg_drawing.velocity = line([0,0],[0,0],'color','g','linewidth',1.5);
     leg_drawing.vertices = cell(leg_params.num_vertices,1);
     for vertex_index = 1:leg_params.num_vertices
         leg_drawing.vertices{vertex_index} = line([0],[0],'marker',...
