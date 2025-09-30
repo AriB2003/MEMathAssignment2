@@ -68,6 +68,9 @@ for ind=1:length(theta)
     update_leg_drawing(vertex_guess_coords, leg_drawing, leg_params, j_velocities);
     pause(0.05);
 end
+
+
+
 figure;
 subplot(2,1,1);
 plot(theta, fd_x_tip, "r-", "DisplayName","Finite Diff");

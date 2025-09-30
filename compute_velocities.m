@@ -7,9 +7,11 @@
 %OUTPUTS:
 %dVdtheta: a column vector containing the theta derivates of each vertex coord
 function dVdtheta = compute_velocities(vertex_coords, leg_params, theta)
-    vertex_wrapper = @(coords) linkage_error_func(coords, leg_params, theta);
+    % vertex_wrapper = @(coords) linkage_error_func(coords, leg_params, theta);
+    vertex_wrapper = @(coords) link_length_error_func(coords, leg_params);
     J = approximate_jacobian(vertex_wrapper, vertex_coords);
-    [w,h] = size(J);
+    % [w,h] = size(J);
+    [h,w] = size(J);
     M = zeros(h+4,w);
     M(1:4,1:4) = eye(4);
     M(5:end,:) = J;
