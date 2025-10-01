@@ -50,11 +50,12 @@ vertex_guess_coords = [...
     [ -50; -100]... %vertex 7 guess
 ];
 leg_drawing = initialize_leg_drawing(leg_params);
-theta = 0:0.1:2*pi;
+theta = 0:0.1:6*pi;
 fd_x_tip = zeros(length(theta),1);
 fd_y_tip = zeros(length(theta),1);
 j_x_tip = zeros(length(theta),1);
-j_y_tip = zeros(length(theta),1);
+j_y_tip = zeros(length(theta),1); 
+
 for ind=1:length(theta)
     vertex_guess_coords = compute_coords(vertex_guess_coords,leg_params,theta(ind));
     fd_velocities = finite_diff_velocities(vertex_guess_coords, leg_params, theta(ind));
@@ -68,8 +69,6 @@ for ind=1:length(theta)
     update_leg_drawing(vertex_guess_coords, leg_drawing, leg_params, j_velocities);
     pause(0.05);
 end
-
-
 
 figure;
 subplot(2,1,1);
