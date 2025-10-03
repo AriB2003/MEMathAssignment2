@@ -78,7 +78,7 @@ plot(theta, j_x_tip,"b--", "DisplayName","Lin Alg");
 title("X velocity of tip");
 xticks([0, pi/2, pi, 3*pi/2, 2*pi])
 xlabel("\theta");
-ylabel("units/s");
+ylabel("units/rad");
 legend();
 hold off
 subplot(2,1,2);
@@ -88,6 +88,6 @@ plot(theta, j_y_tip,"b--", "DisplayName","Lin Alg");
 title("Y velocity of tip");
 xticks([0, pi/2, pi, 3*pi/2, 2*pi])
 xlabel("\theta");
-ylabel("units/s");
+ylabel("units/rad");
 legend();
 hold off
